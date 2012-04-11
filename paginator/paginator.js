@@ -1,5 +1,5 @@
 /*
- *Authur: Chang.Jian
+ *Author: Chang.Jian
  *Contact: changjian53@gmail.com
  *js实现分页
  *效果
