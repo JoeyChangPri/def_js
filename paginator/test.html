@@ -2,19 +2,43 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link href="../static/css/miniblog_s.css" rel="stylesheet" type="text/css" />
-
+<style type="text/css">
+div a {
+    padding:5px;
+}
+div span {
+    padding:5px;
+}
+</style>
 <script type="text/javascript" src="paginator.js"></script>
 <script type="text/javascript">
-var p = new Paginator(11, 6, 1);
-console.log(p.range);
+// var p = new Paginator(11, 6, 1);
+//(new Paginator(14, 6, 1)).html("paginator");
+
+// var t = {};
+// t.__proto__ = Paginator.prototype
+// Paginator.call(t);
+
+// t.aa();
 
 </script>
 <body>
 
 
+<div id="paginator">
+    aaaa
+</div>
+<script type="text/javascript">
+// var p = new Paginator(11, 6, 1);
+(new Paginator(14, 6, 1)).html("paginator");
 
-    
+// var t = {};
+// t.__proto__ = Paginator.prototype
+// Paginator.call(t);
+
+// t.aa();
+
+</script>
 </body>
 </html>
 

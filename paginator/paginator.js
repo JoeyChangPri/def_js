@@ -17,15 +17,14 @@ function Paginator(total, page, per_page) {
 	 */
 
 	this.dot = '...';
-	this.around = 2;         // 除开头结尾外 页数相隔超过1页 则用代替 如:page=6 则会显示 1 2 3 ... 5 6 7
+	this.around = 1;         // 除开头结尾外 页数相隔超过1页 则用代替 如:page=6 则会显示 1 2 3 ... 5 6 7
 	this.side = 3;           // 起始页和结尾页 显示页码个数  1 2 3 ... 11 12 13
 	this._max = 10;          // 设置最少多少页才出现...
 
-    this.total = total;
-    page == undefined ? this.page = 1 : this.page = page;
-    this.page = page;
-    // per_page 默认值可以修改
-    per_page == undefined ? this.per_page = 40 : this.per_page = per_page; 
+	this.total = total;
+	page == undefined ? this.page = 1 : this.page = page;
+	// per_page 默认值可以修改
+	per_page == undefined ? this.per_page = 40 : this.per_page = per_page; 
 	this.maxPage = 0 + Math.ceil(this.total/this.per_page);
 	if (this.page > this.MaxPage) this.page = this.maxPage
 	// 显示上一页 下一页
@@ -84,24 +83,37 @@ Paginator.prototype.set_range = function() {
 	}
 }
 
-Paginator.prototype.toString = function() {
-	return this.range;
+Paginator.prototype.html = function(eid) {
+	// 页面显示
+	// console.log(this+'');
+	document.getElementById(eid).innerHTML = this.display(eid);
 }
 
-
-Paginator.prototype.display = function(func_pre, func_next) {
-	/*
-	<a href="#" onClick="">上一页</a> <a href="#">下一页</a>
-	*/
-    var show = '';
+Paginator.prototype.display = function(pid) {
+	var show = '';
 	if (this.hasPrePage)
 	{
-		show += '<a href="javascript:void(0)" target="_self" onClick="' + func_pre +'">上一页</a>'
+		show += '<a href="javascript:void(0)" target="_self" onClick="(new Paginator(' + 
+				this.total + ',' + (this.page-1) + ',' + this.per_page + 
+				')).html(\'' + pid + '\')">上一页</a>';
+	}
+
+	for (var i in this.range) {
+		if (this.range[i] == this.page || this.range[i] == this.dot) {
+			show += '<span>' + this.range[i] + '</span>';
+
+		} else {
+			show += '<a href="javascript:void(0)" target="_self" onClick="(new Paginator(' + 
+					this.total + ', ' + this.range[i] + ', ' + this.per_page + ')).html(\'' + pid + '\')">' + 
+  					this.range[i] + '</a>';
+		}
 	}
 
 	if (this.hasNextPage)
 	{
-		show += '<a href="javascript:void(0)" target="_self" onClick="' + func_next +'">下一页</a>'
+		show += '<a href="javascript:void(0)" target="_self" onClick="(new Paginator(' + 
+				this.total + ', ' + (this.page+1) + ', ' + this.per_page + 
+				')).html(\'' + pid + '\')">下一页</a>';
 	}
 	return show;
 }
